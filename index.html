@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="A special birthday story for Shifa from Hami ❤️"
+    />
+
+    <title>Hami & Shifa ❤️</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+
+  <body>
+    <!-- =========================================
+         BACKGROUND
+    ========================================== -->
+
+    <div class="background-effects">
+      <div class="glow glow-one"></div>
+      <div class="glow glow-two"></div>
+      <div class="glow glow-three"></div>
+    </div>
+
+    <!-- Floating hearts -->
+    <div id="heartsContainer" class="hearts-container"></div>
+
+    <!-- =========================================
+         APP
+    ========================================== -->
+
+    <main id="app">
+      <!-- =========================================
+           INTRO
+      ========================================== -->
+
+      <section id="introScreen" class="screen intro-screen">
+        <div class="intro-content">
+          <p id="introEyebrow" class="eyebrow">Hami ki taraf se ❤️</p>
+
+          <h1 id="introName" class="intro-name">Shifa</h1>
+
+          <div id="introLines" class="intro-lines"></div>
+
+          <p id="introHighlight" class="intro-highlight">
+            Meri kahani ka sab se khoobsurat hissa... aap hain. ❤️
+          </p>
+
+          <div id="introDate" class="intro-date">
+            17 DECEMBER 2025 · 7:35 PM
+          </div>
+
+          <button id="openStoryBtn" class="primary-button">
+            <span>Hamari novel jaan</span>
+            <span>❤️</span>
+          </button>
+        </div>
+
+        <div class="scroll-hint">
+          <span>Ek chhoti si kahani...</span>
+          <span class="scroll-arrow">↓</span>
+        </div>
+      </section>
+
+      <!-- =========================================
+           BOOK
+      ========================================== -->
+
+      <section id="bookScreen" class="screen book-screen hidden">
+        <div class="book-wrapper">
+          <div id="book" class="book">
+            <!-- =====================================
+                 LEFT PAGE
+            ====================================== -->
+
+            <article class="book-page left-page">
+              <div class="page-content">
+                <div class="page-top">
+                  <span id="leftLabel"> Hami & Shifa </span>
+
+                  <span class="page-number"> ♥ </span>
+                </div>
+
+                <div class="page-center">
+                  <div class="book-cover-decoration">
+                    <span>♥</span>
+                  </div>
+
+                  <h2 id="leftTitle">Hamari Kahani</h2>
+
+                  <p id="leftText">
+                    Do dil, kuch khoobsurat yaadein, thori si pagalpan, bohat
+                    saari mohabbat...
+                  </p>
+
+                  <div class="signature" id="signature">— Hami ❤️</div>
+                </div>
+
+                <div class="page-bottom">
+                  <span>H & S</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- =====================================
+                 RIGHT PAGE
+            ====================================== -->
+
+            <article class="book-page right-page">
+              <div class="page-content">
+                <div class="page-top">
+                  <span id="rightLabel"> Sirf Aapke Liye </span>
+
+                  <span id="pageCounter" class="page-number"> 1 / 10 </span>
+                </div>
+
+                <!-- =================================
+                     OPTIONAL CHAPTER IMAGE
+                ================================== -->
+
+                <div
+                  id="pageImageContainer"
+                  class="page-image-container hidden"
+                >
+                  <img id="pageImage" src="" alt="" />
+                </div>
+
+                <div class="page-center">
+                  <span id="chapterLabel" class="chapter-label">
+                    Pehla Safha
+                  </span>
+
+                  <h2 id="chapterTitle">Hamari first coversation 💌</h2>
+
+                  <div id="chapterText" class="chapter-text"></div>
+                </div>
+
+                <div class="page-bottom">
+                  <span id="pageProgress"> 1 </span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- =========================================
+               BOOK CONTROLS
+          ========================================== -->
+
+          <div class="book-controls">
+            <button
+              id="previousBtn"
+              class="control-button"
+              aria-label="Previous page"
+              type="button"
+            >
+              ←
+            </button>
+
+            <div id="dotsContainer" class="page-dots"></div>
+
+            <button
+              id="nextBtn"
+              class="control-button"
+              aria-label="Next page"
+              type="button"
+            >
+              →
+            </button>
+          </div>
+
+          <p class="navigation-hint">Swipe left/right or use the buttons ❤️</p>
+        </div>
+      </section>
+
+      <!-- =========================================
+           FINAL PAGE
+      ========================================== -->
+
+      <section id="finalScreen" class="screen final-screen hidden">
+        <div class="final-card">
+          <div class="final-decoration">
+            <span>♥</span>
+          </div>
+
+          <p id="finalLabel" class="eyebrow">Ending page... Filhaal ❤️🌹</p>
+
+          <h1 id="finalTitle">Meri Shifo</h1>
+
+          <!-- =====================================
+               OPTIONAL FINAL IMAGE
+          ====================================== -->
+
+          <div id="finalImageContainer" class="final-image-container hidden">
+            <img id="finalImage" src="" alt="" />
+          </div>
+
+          <!-- =====================================
+               FINAL TEXT
+          ====================================== -->
+
+          <div id="finalLines" class="final-lines"></div>
+
+          <div class="final-hearts">❤️ 🌹 ❤️ 🌸 ❤️</div>
+
+          <button id="restartBtn" class="secondary-button" type="button">
+            Kahani dobara parhein ❤️
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- =========================================
+         MUSIC
+    ========================================== -->
+
+    <button
+      id="musicButton"
+      class="music-button"
+      aria-label="Toggle music"
+      title="Music"
+      type="button"
+    >
+      ♪
+    </button>
+
+    <audio id="backgroundMusic" loop preload="none"></audio>
+
+    <script src="./assets/js/app.js"></script>
+  </body>
+</html>

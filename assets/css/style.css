@@ -1,0 +1,1311 @@
+/* =========================================
+   RESET
+========================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  font-family: "Poppins", sans-serif;
+
+  color: #fff;
+
+  background: radial-gradient(
+      circle at 20% 20%,
+      rgba(255, 91, 145, 0.16),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(160, 75, 255, 0.14),
+      transparent 30%
+    ),
+    linear-gradient(135deg, #100713 0%, #210b1d 45%, #0e0712 100%);
+}
+
+button {
+  font-family: inherit;
+}
+
+button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* =========================================
+   BACKGROUND
+========================================= */
+
+.background-effects {
+  position: fixed;
+
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  z-index: 0;
+}
+
+.glow {
+  position: absolute;
+
+  width: 400px;
+  height: 400px;
+
+  border-radius: 50%;
+
+  filter: blur(90px);
+
+  opacity: 0.2;
+
+  animation: glowMove 12s ease-in-out infinite alternate;
+}
+
+.glow-one {
+  top: -150px;
+  left: -100px;
+
+  background: #ff477e;
+}
+
+.glow-two {
+  right: -150px;
+  top: 30%;
+
+  background: #9b4dff;
+
+  animation-delay: 2s;
+}
+
+.glow-three {
+  bottom: -200px;
+  left: 35%;
+
+  background: #ff6f91;
+
+  animation-delay: 4s;
+}
+
+@keyframes glowMove {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+
+  to {
+    transform: translate(60px, 40px) scale(1.2);
+  }
+}
+
+/* =========================================
+   APP
+========================================= */
+
+#app {
+  position: relative;
+
+  z-index: 1;
+}
+
+.screen {
+  min-height: 100vh;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 50px 20px;
+
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* =========================================
+   INTRO
+========================================= */
+
+.intro-screen {
+  position: relative;
+
+  text-align: center;
+}
+
+.intro-content {
+  width: min(900px, 100%);
+
+  animation: introAppear 1.5s ease forwards;
+}
+
+@keyframes introAppear {
+  from {
+    opacity: 0;
+
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   INTRO TEXT
+========================================= */
+
+.eyebrow {
+  margin-bottom: 15px;
+
+  color: #f9a4bc;
+
+  font-size: 0.85rem;
+
+  font-weight: 500;
+
+  letter-spacing: 4px;
+
+  text-transform: uppercase;
+}
+
+.intro-name {
+  margin-bottom: 25px;
+
+  padding-top: 22px;
+  padding-bottom: 17px;
+
+  font-family: "Great Vibes", cursive;
+
+  font-size: clamp(5rem, 15vw, 10rem);
+
+  line-height: 0.9;
+
+  font-weight: 400;
+
+  background: linear-gradient(135deg, #fff, #ffb3c8, #ff6b98);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+
+  filter: drop-shadow(0 10px 35px rgba(255, 84, 130, 0.25));
+}
+
+.intro-lines {
+  max-width: 700px;
+
+  margin: auto;
+
+  color: rgba(255, 255, 255, 0.78);
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+
+  line-height: 1.7;
+}
+
+.intro-lines p {
+  margin-bottom: 5px;
+}
+
+.intro-highlight {
+  margin-top: 25px;
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+
+  color: #fff;
+}
+
+.intro-date {
+  margin-top: 25px;
+
+  color: #d89aae;
+
+  font-size: 0.75rem;
+
+  letter-spacing: 3px;
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.primary-button,
+.secondary-button {
+  border: 0;
+
+  cursor: pointer;
+
+  margin-top: 35px;
+
+  padding: 15px 28px;
+
+  border-radius: 999px;
+
+  color: #fff;
+
+  font-size: 0.9rem;
+
+  font-weight: 500;
+
+  background: linear-gradient(135deg, #e83f72, #9c3c88);
+
+  box-shadow: 0 10px 35px rgba(224, 52, 110, 0.3);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-4px);
+
+  box-shadow: 0 15px 45px rgba(224, 52, 110, 0.45);
+}
+
+.primary-button:active,
+.secondary-button:active {
+  transform: scale(0.97);
+}
+
+/* =========================================
+   SCROLL HINT
+========================================= */
+
+.scroll-hint {
+  position: absolute;
+
+  bottom: 30px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  color: rgba(255, 255, 255, 0.4);
+
+  font-size: 0.7rem;
+
+  text-transform: uppercase;
+
+  letter-spacing: 2px;
+}
+
+.scroll-arrow {
+  font-size: 1.2rem;
+
+  animation: arrowBounce 1.5s infinite;
+}
+
+@keyframes arrowBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(7px);
+  }
+}
+
+/* =========================================
+   BOOK
+========================================= */
+
+.book-screen {
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+
+.book-wrapper {
+  width: min(1100px, 100%);
+}
+
+.book {
+  position: relative;
+
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  perspective: 1800px;
+
+  filter: drop-shadow(0 30px 70px rgba(0, 0, 0, 0.45));
+}
+
+/* =========================================
+   BOOK PAGE
+========================================= */
+
+.book-page {
+  position: relative;
+
+  min-height: 680px;
+
+  overflow: hidden;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 180, 205, 0.16),
+    rgba(255, 255, 255, 0.07)
+  );
+
+  color: #fff;
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+
+  backdrop-filter: blur(18px);
+
+  -webkit-backdrop-filter: blur(18px);
+
+  box-shadow: inset 0 0 40px rgba(255, 120, 160, 0.06),
+    0 20px 60px rgba(0, 0, 0, 0.18);
+}
+
+/* =========================================
+   LEFT PAGE
+========================================= */
+
+.left-page {
+  border-radius: 14px 0 0 14px;
+
+  box-shadow: inset -15px 0 30px rgba(255, 100, 150, 0.06),
+    inset 0 0 30px rgba(255, 255, 255, 0.03);
+}
+
+/* =========================================
+   RIGHT PAGE
+========================================= */
+
+.right-page {
+  border-radius: 0 14px 14px 0;
+
+  box-shadow: inset 15px 0 30px rgba(155, 77, 255, 0.06),
+    inset 0 0 30px rgba(255, 255, 255, 0.03);
+}
+
+/* =========================================
+   PAGE INNER BORDER
+========================================= */
+
+.book-page::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 18px;
+
+  border: 1px solid rgba(255, 180, 205, 0.22);
+
+  border-radius: 8px;
+
+  pointer-events: none;
+}
+
+/* =========================================
+   PAGE CONTENT
+========================================= */
+
+.page-content {
+  position: relative;
+
+  height: 100%;
+
+  min-height: 680px;
+
+  padding: 45px 55px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  background: transparent;
+}
+
+/* =========================================
+   PAGE TOP
+========================================= */
+
+.page-top {
+  position: relative;
+
+  z-index: 2;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  color: rgba(255, 205, 220, 0.7);
+
+  font-size: 0.68rem;
+
+  text-transform: uppercase;
+
+  letter-spacing: 2px;
+}
+
+.page-number {
+  opacity: 0.7;
+}
+
+/* =========================================
+   PAGE CENTER
+========================================= */
+
+.page-center {
+  position: relative;
+
+  z-index: 2;
+
+  flex: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+}
+
+.left-page .page-center {
+  align-items: center;
+
+  text-align: center;
+}
+
+/* =========================================
+   COVER DECORATION
+========================================= */
+
+.book-cover-decoration {
+  width: 80px;
+  height: 80px;
+
+  margin-bottom: 25px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border: 1px solid rgba(255, 170, 195, 0.35);
+
+  border-radius: 50%;
+
+  color: #ff9fbd;
+
+  font-size: 2rem;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  box-shadow: 0 0 30px rgba(255, 90, 140, 0.12);
+}
+
+/* =========================================
+   HEADINGS
+========================================= */
+
+.page-center h2 {
+  margin-bottom: 20px;
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+
+  font-weight: 600;
+
+  color: #ffe4ed;
+
+  text-shadow: 0 4px 20px rgba(255, 100, 150, 0.25);
+}
+
+.left-page .page-center h2 {
+  font-family: "Great Vibes", cursive;
+
+  font-size: clamp(3rem, 6vw, 5rem);
+
+  font-weight: 400;
+
+  color: #ffb1c7;
+
+  text-shadow: 0 5px 25px rgba(255, 70, 130, 0.3);
+}
+
+/* =========================================
+   LEFT DESCRIPTION
+========================================= */
+
+.left-page .page-center p {
+  max-width: 390px;
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 1.25rem;
+
+  line-height: 1.7;
+
+  color: rgba(255, 235, 242, 0.82);
+}
+
+/* =========================================
+   SIGNATURE
+========================================= */
+
+.signature {
+  margin-top: 35px;
+
+  font-family: "Great Vibes", cursive;
+
+  font-size: 2rem;
+
+  color: #ff9fbd;
+
+  text-shadow: 0 4px 20px rgba(255, 80, 140, 0.3);
+}
+
+/* =========================================
+   PAGE BOTTOM
+========================================= */
+
+.page-bottom {
+  position: relative;
+
+  z-index: 2;
+
+  display: flex;
+
+  justify-content: center;
+
+  color: rgba(255, 190, 210, 0.65);
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 0.9rem;
+}
+
+/* =========================================
+   CHAPTER
+========================================= */
+
+.chapter-label {
+  margin-bottom: 8px;
+
+  color: #ff91b5;
+
+  font-size: 0.7rem;
+
+  text-transform: uppercase;
+
+  letter-spacing: 2px;
+}
+
+.chapter-text {
+  max-width: 470px;
+
+  max-height: 390px;
+
+  overflow-y: auto;
+
+  padding-right: 8px;
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+
+  line-height: 1.7;
+
+  white-space: pre-line;
+
+  overflow-wrap: anywhere;
+
+  color: rgba(255, 238, 244, 0.88);
+}
+
+.chapter-text::-webkit-scrollbar {
+  width: 4px;
+}
+
+.chapter-text::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chapter-text::-webkit-scrollbar-thumb {
+  background: rgba(255, 145, 180, 0.55);
+
+  border-radius: 10px;
+}
+
+.chapter-text {
+  scrollbar-width: thin;
+
+  scrollbar-color: rgba(255, 145, 180, 0.55) transparent;
+}
+
+/* =========================================
+   OPTIONAL CHAPTER IMAGE
+========================================= */
+
+.page-image-container {
+  position: relative;
+  z-index: 5;
+
+  width: 100%;
+  max-width: 430px;
+  height: 300px;
+
+  margin: 15px auto 5px;
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+  border: 1px solid rgba(255, 180, 205, 0.25);
+
+  background: rgba(255, 255, 255, 0.04);
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.page-image-container img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: scale-down;
+  transform: scale(1.03);
+  transition: transform 0.5s ease;
+}
+
+.page-image-container:hover img {
+  transform: scale(1.5);
+}
+/* =========================================
+   BOOK CONTROLS
+========================================= */
+
+.book-controls {
+  margin-top: 30px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 25px;
+}
+
+.control-button {
+  width: 48px;
+  height: 48px;
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.07);
+
+  color: #fff;
+
+  cursor: pointer;
+
+  font-size: 1.3rem;
+
+  backdrop-filter: blur(10px);
+
+  -webkit-backdrop-filter: blur(10px);
+
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.control-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+
+  transform: scale(1.08);
+}
+
+.control-button:disabled {
+  opacity: 0.3;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+/* =========================================
+   DOTS
+========================================= */
+
+.page-dots {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  max-width: 350px;
+
+  overflow-x: auto;
+
+  padding: 5px;
+}
+
+.page-dot {
+  width: 7px;
+  height: 7px;
+
+  flex-shrink: 0;
+
+  border: 0;
+
+  padding: 0;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.25);
+
+  cursor: pointer;
+
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.page-dot.active {
+  width: 22px;
+
+  border-radius: 20px;
+
+  background: #ff789e;
+
+  box-shadow: 0 0 12px rgba(255, 120, 158, 0.5);
+}
+
+.navigation-hint {
+  margin-top: 15px;
+
+  text-align: center;
+
+  color: rgba(255, 255, 255, 0.35);
+
+  font-size: 0.7rem;
+}
+
+/* =========================================
+   FINAL
+========================================= */
+
+.final-screen {
+  padding: 70px 20px;
+}
+
+.final-card {
+  width: min(850px, 100%);
+
+  padding: 60px 50px;
+
+  text-align: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  border-radius: 25px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.025)
+  );
+
+  backdrop-filter: blur(20px);
+
+  -webkit-backdrop-filter: blur(20px);
+
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.35);
+
+  animation: finalAppear 1.2s ease;
+}
+
+@keyframes finalAppear {
+  from {
+    opacity: 0;
+
+    transform: translateY(50px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================================
+   FINAL DECORATION
+========================================= */
+
+.final-decoration {
+  width: 70px;
+  height: 70px;
+
+  margin: 0 auto 25px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(255, 98, 140, 0.1);
+
+  color: #ff789e;
+
+  font-size: 2rem;
+
+  animation: heartbeat 1.8s infinite;
+}
+
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  10% {
+    transform: scale(1.1);
+  }
+
+  20% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.12);
+  }
+
+  40% {
+    transform: scale(1);
+  }
+}
+
+/* =========================================
+   FINAL IMAGE
+========================================= */
+
+.final-image-container {
+  width: min(700px, 100%);
+
+  height: 420px;
+
+  margin: 0 auto 40px;
+
+  overflow: hidden;
+
+  border-radius: 20px;
+
+  border: 1px solid rgba(255, 180, 205, 0.28);
+
+  background: rgba(255, 255, 255, 0.04);
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.final-image-container img {
+  width: 100%;
+
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition: transform 0.7s ease;
+}
+
+.final-image-container:hover img {
+  transform: scale(1.025);
+}
+
+/* =========================================
+   FINAL TEXT
+========================================= */
+
+.final-card h1 {
+  margin-bottom: 35px;
+
+  font-family: "Great Vibes", cursive;
+
+  font-size: clamp(3rem, 10vw, 7rem);
+
+  font-weight: 400;
+
+  color: #ffb1c7;
+
+  text-shadow: 0 5px 30px rgba(255, 80, 140, 0.25);
+}
+
+.final-lines {
+  max-width: 700px;
+
+  margin: auto;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 17px;
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+
+  line-height: 1.6;
+
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.final-line {
+  opacity: 0;
+
+  transform: translateY(15px);
+
+  animation: finalLineAppear 0.8s ease forwards;
+}
+
+@keyframes finalLineAppear {
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+.final-hearts {
+  margin-top: 40px;
+
+  font-size: 1.5rem;
+
+  letter-spacing: 8px;
+}
+
+.secondary-button {
+  margin-top: 40px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  box-shadow: none;
+}
+
+/* =========================================
+   FLOATING HEARTS
+========================================= */
+
+.hearts-container {
+  position: fixed;
+
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  z-index: 20;
+}
+
+.floating-heart {
+  position: absolute;
+
+  bottom: -40px;
+
+  color: #ff6f98;
+
+  opacity: 0;
+
+  font-size: 15px;
+
+  animation: floatHeart linear forwards;
+}
+
+@keyframes floatHeart {
+  0% {
+    opacity: 0;
+
+    transform: translateY(0) rotate(0deg) scale(0.6);
+  }
+
+  10% {
+    opacity: 0.6;
+  }
+
+  80% {
+    opacity: 0.35;
+  }
+
+  100% {
+    opacity: 0;
+
+    transform: translateY(-110vh) rotate(30deg) scale(1.2);
+  }
+}
+
+/* =========================================
+   MUSIC
+========================================= */
+
+.music-button {
+  position: fixed;
+
+  right: 20px;
+  bottom: 20px;
+
+  z-index: 50;
+
+  width: 45px;
+  height: 45px;
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.07);
+
+  color: #fff;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(10px);
+
+  -webkit-backdrop-filter: blur(10px);
+
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.music-button:hover {
+  transform: scale(1.08);
+
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.music-button.playing {
+  animation: musicPulse 1.2s infinite;
+}
+
+@keyframes musicPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(255, 95, 140, 0);
+  }
+
+  50% {
+    box-shadow: 0 0 25px rgba(255, 95, 140, 0.4);
+  }
+}
+
+/* =========================================
+   PAGE ANIMATION
+========================================= */
+
+.book-page.page-changing {
+  animation: pageChange 0.45s ease;
+}
+
+@keyframes pageChange {
+  0% {
+    opacity: 0.3;
+
+    transform: translateX(20px);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform: translateX(0);
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 800px) {
+  .screen {
+    padding: 35px 15px;
+  }
+
+  .scroll-hint {
+    display: none;
+  }
+
+  .book {
+    display: block;
+  }
+
+  .left-page {
+    display: none;
+  }
+
+  .right-page {
+    min-height: 650px;
+
+    border-radius: 14px;
+  }
+
+  .page-content {
+    min-height: 650px;
+
+    padding: 38px 35px;
+  }
+
+  .chapter-text {
+    max-height: 430px;
+  }
+
+  .book-controls {
+    gap: 15px;
+  }
+
+  .final-card {
+    padding: 45px 25px;
+  }
+
+  .final-image-container {
+    height: 280px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+  .chapter-text {
+    max-height: 52vh;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    padding: 8px;
+  }
+
+  .final-image-container {
+    height: 240px;
+  }
+}
+
+/* =========================================
+   EXTRA SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+  .intro-name {
+    font-size: 5.5rem;
+  }
+
+  .intro-lines {
+    font-size: 1.2rem;
+  }
+
+  .intro-highlight {
+    font-size: 1.5rem;
+  }
+
+  .intro-date {
+    font-size: 0.62rem;
+
+    letter-spacing: 2px;
+  }
+
+  .primary-button {
+    padding: 13px 22px;
+  }
+
+  .right-page {
+    min-height: 620px;
+  }
+
+  .page-content {
+    min-height: 620px;
+
+    padding: 30px 25px;
+  }
+
+  .book-page::before {
+    inset: 12px;
+  }
+
+  .page-center h2 {
+    font-size: 2.4rem;
+  }
+
+  .chapter-text {
+    font-size: 1.15rem;
+
+    line-height: 1.65;
+  }
+
+  .page-image-container {
+    height: 150px;
+  }
+
+  .page-dots {
+    max-width: 170px;
+  }
+
+  .final-card h1 {
+    font-size: 3.5rem;
+  }
+
+  .final-lines {
+    font-size: 1.2rem;
+  }
+
+  .final-image-container {
+    height: 200px;
+
+    border-radius: 15px;
+
+    margin-bottom: 30px;
+  }
+
+  .music-button {
+    right: 14px;
+
+    bottom: 14px;
+  }
+}
