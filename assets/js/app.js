@@ -1,35 +1,14 @@
-/* =========================================
-   HAMI & SHIFA
-   Birthday Story App
-========================================= */
-
-/* =========================================
-   APP STATE
-========================================= */
-
 const state = {
   data: null,
-
   currentPage: 0,
-
   totalPages: 0,
-
   touchStartX: 0,
-
   touchStartY: 0,
-
   isAnimating: false,
+  musicStarted: false,
 };
 
-/* =========================================
-   DOM
-========================================= */
-
 const elements = {};
-
-/* =========================================
-   INITIALIZE
-========================================= */
 
 document.addEventListener("DOMContentLoaded", init);
 
@@ -40,17 +19,16 @@ async function init() {
 
   createFloatingHearts();
 
+  attemptAutoplay();
+
   try {
     const data = await loadData();
 
     state.data = data;
 
     renderIntro();
-
     renderBookCover();
-
     renderDots();
-
     renderPage();
   } catch (error) {
     console.error("Unable to initialize website:", error);
@@ -59,76 +37,40 @@ async function init() {
   }
 }
 
-/* =========================================
-   CACHE DOM
-========================================= */
-
 function cacheElements() {
   elements.introScreen = document.getElementById("introScreen");
-
   elements.bookScreen = document.getElementById("bookScreen");
-
   elements.finalScreen = document.getElementById("finalScreen");
 
-  /* Intro */
-
   elements.introEyebrow = document.getElementById("introEyebrow");
-
   elements.introName = document.getElementById("introName");
-
   elements.introLines = document.getElementById("introLines");
-
   elements.introHighlight = document.getElementById("introHighlight");
-
   elements.introDate = document.getElementById("introDate");
-
   elements.openStoryBtn = document.getElementById("openStoryBtn");
 
-  /* Book */
-
   elements.leftLabel = document.getElementById("leftLabel");
-
   elements.leftTitle = document.getElementById("leftTitle");
-
   elements.leftText = document.getElementById("leftText");
-
   elements.signature = document.getElementById("signature");
-
   elements.rightLabel = document.getElementById("rightLabel");
 
-  /* Chapter */
-
   elements.chapterLabel = document.getElementById("chapterLabel");
-
   elements.chapterTitle = document.getElementById("chapterTitle");
-
   elements.chapterText = document.getElementById("chapterText");
-
   elements.pageCounter = document.getElementById("pageCounter");
-
   elements.pageProgress = document.getElementById("pageProgress");
 
-  /* Navigation */
-
   elements.previousBtn = document.getElementById("previousBtn");
-
   elements.nextBtn = document.getElementById("nextBtn");
-
   elements.dotsContainer = document.getElementById("dotsContainer");
 
-  /* Book */
-
   elements.book = document.getElementById("book");
-
   elements.rightPage = document.querySelector(".right-page");
-
-  /* Chapter image */
 
   elements.pageImageContainer = document.getElementById("pageImageContainer");
 
   elements.pageImage = document.getElementById("pageImage");
-
-  /* Final */
 
   elements.finalLabel = document.getElementById("finalLabel");
 
@@ -136,20 +78,11 @@ function cacheElements() {
 
   elements.finalLines = document.getElementById("finalLines");
 
-  /*
-   * IMPORTANT FIX
-   *
-   * These two elements were missing
-   * from your previous JS.
-   */
-
   elements.finalImageContainer = document.getElementById("finalImageContainer");
 
   elements.finalImage = document.getElementById("finalImage");
 
   elements.restartBtn = document.getElementById("restartBtn");
-
-  /* Other */
 
   elements.heartsContainer = document.getElementById("heartsContainer");
 
@@ -158,13 +91,12 @@ function cacheElements() {
   elements.backgroundMusic = document.getElementById("backgroundMusic");
 }
 
-/* =========================================
-   EVENTS
-========================================= */
-
 function setupEventListeners() {
   if (elements.openStoryBtn) {
-    elements.openStoryBtn.addEventListener("click", openStory);
+    elements.openStoryBtn.addEventListener("click", () => {
+      openStory();
+      startMusic();
+    });
   }
 
   if (elements.previousBtn) {
@@ -186,11 +118,97 @@ function setupEventListeners() {
   setupSwipe();
 
   document.addEventListener("keydown", handleKeyboard);
+
+  document.addEventListener("pointerdown", handleFirstInteraction, {
+    once: true,
+  });
 }
 
-/* =========================================
-   LOAD JSON
-========================================= */
+function attemptAutoplay() {
+  const music = elements.backgroundMusic;
+
+  if (!music) {
+    return;
+  }
+
+  music
+    .play()
+    .then(() => {
+      state.musicStarted = true;
+      setMusicPlayingState();
+    })
+    .catch(() => {
+      console.log("Autoplay blocked. Waiting for user interaction.");
+    });
+}
+
+function handleFirstInteraction() {
+  if (!state.musicStarted) {
+    startMusic();
+  }
+}
+
+function startMusic() {
+  const music = elements.backgroundMusic;
+
+  if (!music || !music.src) {
+    return;
+  }
+
+  if (!music.paused) {
+    state.musicStarted = true;
+    setMusicPlayingState();
+    return;
+  }
+
+  music
+    .play()
+    .then(() => {
+      state.musicStarted = true;
+      setMusicPlayingState();
+    })
+    .catch((error) => {
+      console.warn("Music could not start:", error);
+    });
+}
+
+function setMusicPlayingState() {
+  if (!elements.musicButton) {
+    return;
+  }
+
+  elements.musicButton.classList.add("playing");
+  elements.musicButton.textContent = "♫";
+}
+
+function setMusicPausedState() {
+  if (!elements.musicButton) {
+    return;
+  }
+
+  elements.musicButton.classList.remove("playing");
+  elements.musicButton.textContent = "♪";
+}
+
+function toggleMusic() {
+  const music = elements.backgroundMusic;
+
+  if (!music) {
+    return;
+  }
+
+  if (!music.src) {
+    setMusicPausedState();
+    return;
+  }
+
+  if (music.paused) {
+    startMusic();
+  } else {
+    music.pause();
+    setMusicPausedState();
+  }
+}
 
 async function loadData() {
   const response = await fetch("./assets/data/data.json");
@@ -205,10 +223,6 @@ async function loadData() {
 
   return data;
 }
-
-/* =========================================
-   VALIDATION
-========================================= */
 
 function validateData(data) {
   if (!data) {
@@ -237,10 +251,6 @@ function validateData(data) {
 
   state.totalPages = data.chapters.length + 1;
 }
-
-/* =========================================
-   INTRO
-========================================= */
 
 function renderIntro() {
   const intro = state.data.intro;
@@ -283,10 +293,6 @@ function renderIntro() {
   }
 }
 
-/* =========================================
-   BOOK COVER
-========================================= */
-
 function renderBookCover() {
   const book = state.data.book;
 
@@ -311,17 +317,12 @@ function renderBookCover() {
   }
 }
 
-/* =========================================
-   OPEN STORY
-========================================= */
-
 function openStory() {
   if (!elements.introScreen || !elements.bookScreen) {
     return;
   }
 
   elements.introScreen.classList.add("hidden");
-
   elements.bookScreen.classList.remove("hidden");
 
   state.currentPage = 0;
@@ -336,10 +337,6 @@ function openStory() {
   startHeartAnimation();
 }
 
-/* =========================================
-   CURRENT CONTENT
-========================================= */
-
 function getCurrentContent() {
   if (!state.data) {
     return null;
@@ -353,10 +350,6 @@ function getCurrentContent() {
 
   return state.data.birthday;
 }
-
-/* =========================================
-   RENDER PAGE
-========================================= */
 
 function renderPage(direction = "next") {
   if (!state.data || !elements.chapterTitle) {
@@ -393,30 +386,14 @@ function renderPage(direction = "next") {
     elements.pageProgress.textContent = state.currentPage + 1;
   }
 
-  /*
-   * Image can be:
-   *
-   * ""
-   *
-   * "./assets/images/photo.jpg"
-   *
-   * "https://..."
-   */
-
   renderOptionalImage(content.image, "chapter");
 
   updateNavigation();
-
   updateDots();
 }
 
-/* =========================================
-   UNIVERSAL IMAGE RENDERER
-========================================= */
-
 function renderOptionalImage(imagePath, type = "chapter") {
   let container;
-
   let image;
 
   if (type === "final") {
@@ -433,23 +410,13 @@ function renderOptionalImage(imagePath, type = "chapter") {
     return;
   }
 
-  /*
-   * Reset old image first.
-   */
-
   image.onload = null;
-
   image.onerror = null;
 
   image.removeAttribute("src");
-
   image.alt = "";
 
   container.classList.add("hidden");
-
-  /*
-   * Empty image
-   */
 
   if (typeof imagePath !== "string" || imagePath.trim() === "") {
     return;
@@ -457,23 +424,14 @@ function renderOptionalImage(imagePath, type = "chapter") {
 
   const cleanPath = imagePath.trim();
 
-  /*
-   * Valid image
-   */
-
   image.onload = () => {
     container.classList.remove("hidden");
   };
-
-  /*
-   * Broken image
-   */
 
   image.onerror = () => {
     console.warn(`Image failed to load: ${cleanPath}`);
 
     container.classList.add("hidden");
-
     image.removeAttribute("src");
   };
 
@@ -481,10 +439,6 @@ function renderOptionalImage(imagePath, type = "chapter") {
 
   image.src = cleanPath;
 }
-
-/* =========================================
-   PAGE ANIMATION
-========================================= */
 
 function animatePage(direction) {
   if (!elements.rightPage) {
@@ -497,10 +451,6 @@ function animatePage(direction) {
 
   elements.rightPage.classList.add("page-changing");
 }
-
-/* =========================================
-   NEXT PAGE
-========================================= */
 
 function nextPage() {
   if (state.isAnimating) {
@@ -517,10 +467,6 @@ function nextPage() {
 
   showFinal();
 }
-
-/* =========================================
-   PREVIOUS PAGE
-========================================= */
 
 function previousPage() {
   if (state.isAnimating) {
@@ -549,10 +495,6 @@ function previousPage() {
   });
 }
 
-/* =========================================
-   NAVIGATION
-========================================= */
-
 function updateNavigation() {
   if (elements.previousBtn) {
     elements.previousBtn.disabled = false;
@@ -563,10 +505,6 @@ function updateNavigation() {
       state.currentPage >= state.totalPages - 1 ? "♥" : "→";
   }
 }
-
-/* =========================================
-   DOTS
-========================================= */
 
 function renderDots() {
   if (!elements.dotsContainer) {
@@ -579,7 +517,6 @@ function renderDots() {
     const dot = document.createElement("button");
 
     dot.type = "button";
-
     dot.className = "page-dot";
 
     dot.setAttribute("aria-label", `Page ${index + 1}`);
@@ -614,10 +551,6 @@ function updateDots() {
   });
 }
 
-/* =========================================
-   SWIPE
-========================================= */
-
 function setupSwipe() {
   const book = elements.book || document.getElementById("book");
 
@@ -625,13 +558,9 @@ function setupSwipe() {
     return;
   }
 
-  book.addEventListener("touchstart", handleTouchStart, {
-    passive: true,
-  });
+  book.addEventListener("touchstart", handleTouchStart, { passive: true });
 
-  book.addEventListener("touchend", handleTouchEnd, {
-    passive: true,
-  });
+  book.addEventListener("touchend", handleTouchEnd, { passive: true });
 }
 
 function handleTouchStart(event) {
@@ -672,10 +601,6 @@ function handleTouchEnd(event) {
   }
 }
 
-/* =========================================
-   KEYBOARD
-========================================= */
-
 function handleKeyboard(event) {
   if (
     !elements.bookScreen ||
@@ -692,10 +617,6 @@ function handleKeyboard(event) {
     previousPage();
   }
 }
-
-/* =========================================
-   FINAL PAGE
-========================================= */
 
 function showFinal() {
   if (!elements.bookScreen || !elements.finalScreen) {
@@ -716,10 +637,6 @@ function showFinal() {
   startHeartAnimation();
 }
 
-/* =========================================
-   RENDER FINAL
-========================================= */
-
 function renderFinal() {
   const final = state.data.final;
 
@@ -731,23 +648,7 @@ function renderFinal() {
     elements.finalTitle.textContent = final.title || "";
   }
 
-  /*
-   * FINAL IMAGE
-   *
-   * Supports:
-   *
-   * ""
-   *
-   * "./assets/images/shifa.jpg"
-   *
-   * "https://res.cloudinary.com/..."
-   */
-
   renderOptionalImage(final.image, "final");
-
-  /*
-   * FINAL TEXT
-   */
 
   if (elements.finalLines) {
     elements.finalLines.innerHTML = "";
@@ -768,10 +669,6 @@ function renderFinal() {
   }
 }
 
-/* =========================================
-   RESTART
-========================================= */
-
 function restartStory() {
   if (elements.finalScreen) {
     elements.finalScreen.classList.add("hidden");
@@ -790,10 +687,6 @@ function restartStory() {
     behavior: "smooth",
   });
 }
-
-/* =========================================
-   FLOATING HEARTS
-========================================= */
 
 function createFloatingHearts() {
   if (!elements.heartsContainer) {
@@ -839,53 +732,6 @@ function startHeartAnimation() {
   }
 }
 
-/* =========================================
-   MUSIC
-========================================= */
-
-function toggleMusic() {
-  const music = elements.backgroundMusic;
-
-  if (!music) {
-    return;
-  }
-
-  /*
-   * No music file yet.
-   */
-
-  if (!music.src) {
-    if (elements.musicButton) {
-      elements.musicButton.textContent = "♪";
-    }
-
-    return;
-  }
-
-  if (music.paused) {
-    music
-      .play()
-      .then(() => {
-        elements.musicButton?.classList.add("playing");
-
-        elements.musicButton.textContent = "♫";
-      })
-      .catch((error) => {
-        console.warn("Music could not start:", error);
-      });
-  } else {
-    music.pause();
-
-    elements.musicButton?.classList.remove("playing");
-
-    elements.musicButton.textContent = "♪";
-  }
-}
-
-/* =========================================
-   ERROR
-========================================= */
-
 function showDataError() {
   const message = `
     <div
@@ -900,9 +746,7 @@ function showDataError() {
         font-family:Poppins,sans-serif;
       "
     >
-
       <div>
-
         <h1 style="margin-bottom:15px;">
           Oops ❤️
         </h1>
@@ -921,9 +765,7 @@ function showDataError() {
           Please website ko local server
           se run karein.
         </p>
-
       </div>
-
     </div>
   `;
 

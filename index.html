@@ -24,28 +24,15 @@
   </head>
 
   <body>
-    <!-- =========================================
-         BACKGROUND
-    ========================================== -->
-
     <div class="background-effects">
       <div class="glow glow-one"></div>
       <div class="glow glow-two"></div>
       <div class="glow glow-three"></div>
     </div>
 
-    <!-- Floating hearts -->
     <div id="heartsContainer" class="hearts-container"></div>
 
-    <!-- =========================================
-         APP
-    ========================================== -->
-
     <main id="app">
-      <!-- =========================================
-           INTRO
-      ========================================== -->
-
       <section id="introScreen" class="screen intro-screen">
         <div class="intro-content">
           <p id="introEyebrow" class="eyebrow">Hami ki taraf se ❤️</p>
@@ -62,7 +49,7 @@
             17 DECEMBER 2025 · 7:35 PM
           </div>
 
-          <button id="openStoryBtn" class="primary-button">
+          <button id="openStoryBtn" class="primary-button" type="button">
             <span>Hamari novel jaan</span>
             <span>❤️</span>
           </button>
@@ -74,17 +61,9 @@
         </div>
       </section>
 
-      <!-- =========================================
-           BOOK
-      ========================================== -->
-
       <section id="bookScreen" class="screen book-screen hidden">
         <div class="book-wrapper">
           <div id="book" class="book">
-            <!-- =====================================
-                 LEFT PAGE
-            ====================================== -->
-
             <article class="book-page left-page">
               <div class="page-content">
                 <div class="page-top">
@@ -114,10 +93,6 @@
               </div>
             </article>
 
-            <!-- =====================================
-                 RIGHT PAGE
-            ====================================== -->
-
             <article class="book-page right-page">
               <div class="page-content">
                 <div class="page-top">
@@ -125,10 +100,6 @@
 
                   <span id="pageCounter" class="page-number"> 1 / 10 </span>
                 </div>
-
-                <!-- =================================
-                     OPTIONAL CHAPTER IMAGE
-                ================================== -->
 
                 <div
                   id="pageImageContainer"
@@ -153,10 +124,6 @@
               </div>
             </article>
           </div>
-
-          <!-- =========================================
-               BOOK CONTROLS
-          ========================================== -->
 
           <div class="book-controls">
             <button
@@ -184,10 +151,6 @@
         </div>
       </section>
 
-      <!-- =========================================
-           FINAL PAGE
-      ========================================== -->
-
       <section id="finalScreen" class="screen final-screen hidden">
         <div class="final-card">
           <div class="final-decoration">
@@ -198,17 +161,9 @@
 
           <h1 id="finalTitle">Meri Shifo</h1>
 
-          <!-- =====================================
-               OPTIONAL FINAL IMAGE
-          ====================================== -->
-
           <div id="finalImageContainer" class="final-image-container hidden">
             <img id="finalImage" src="" alt="" />
           </div>
-
-          <!-- =====================================
-               FINAL TEXT
-          ====================================== -->
 
           <div id="finalLines" class="final-lines"></div>
 
@@ -221,10 +176,6 @@
       </section>
     </main>
 
-    <!-- =========================================
-         MUSIC
-    ========================================== -->
-
     <button
       id="musicButton"
       class="music-button"
@@ -235,7 +186,13 @@
       ♪
     </button>
 
-    <audio id="backgroundMusic" loop preload="none"></audio>
+    <audio
+      id="backgroundMusic"
+      autoplay
+      loop
+      preload="auto"
+      src="./assets/music/birthday-song.mp3"
+    ></audio>
 
     <script src="./assets/js/app.js"></script>
   </body>
